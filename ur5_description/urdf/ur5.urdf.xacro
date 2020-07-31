@@ -86,6 +86,7 @@
         <material name="LightGrey">
           <color rgba="0.7 0.7 0.7 1.0"/>
         </material>
+        <origin xyz="-0.02 0.86 0.7" rpy="-2.72 -0.11 0.57" />
       </visual>
       <collision>
         <geometry>
@@ -93,14 +94,14 @@
         </geometry>
       </collision>
       <xacro:cylinder_inertial radius="0.06" length="0.05" mass="${base_mass}">
-        <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+        <origin xyz="0.0 0.0 1.0" rpy="0 0 0" />
       </xacro:cylinder_inertial>
     </link>
 
     <joint name="${prefix}shoulder_pan_joint" type="revolute">
       <parent link="${prefix}base_link" />
       <child link = "${prefix}shoulder_link" />
-      <origin xyz="0.0 0.0 ${shoulder_height}" rpy="0.0 0.0 0.0" />
+      <origin xyz="-0.02 0.86 0.7" rpy="-2.72 -0.11 0.57" />
       <axis xyz="0 0 1" />
       <xacro:unless value="${joint_limited}">
         <limit lower="${-2.0 * pi}" upper="${2.0 * pi}" effort="150.0" velocity="3.15"/>
@@ -314,16 +315,16 @@
     <xacro:ur_arm_gazebo prefix="${prefix}" />
 
     <!-- ROS base_link to UR 'Base' Coordinates transform -->
-    <link name="${prefix}base"/>
-    <joint name="${prefix}base_link-base_fixed_joint" type="fixed">
+    <!-- <link name="${prefix}base"/> -->
+    <!-- <joint name="${prefix}base_link-base_fixed_joint" type="fixed"> -->
       <!-- NOTE: this rotation is only needed as long as base_link itself is
                  not corrected wrt the real robot (ie: rotated over 180
                  degrees)
       -->
-      <origin xyz="0 0 0" rpy="0 0 ${-pi}"/>
-      <parent link="${prefix}base_link"/>
-      <child link="${prefix}base"/>
-    </joint>
+      <!-- <origin xyz="0 0 2.0" rpy="0.0 0 ${-pi}"/> -->
+      <!-- <parent link="${prefix}base_link"/> -->
+      <!-- <child link="${prefix}base"/> -->
+    <!-- </joint> -->
 
     <!-- Frame coincident with all-zeros TCP on UR controller -->
     <link name="${prefix}tool0"/>
